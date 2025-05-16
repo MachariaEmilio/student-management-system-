@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+model Student {
+  id          String   @id @default(cuid())
+  name        String
+  age         Int
+  parentName  String
+  parentEmail String
+  notified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
