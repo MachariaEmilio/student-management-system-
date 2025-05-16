@@ -66,3 +66,35 @@ exports.deleteStudent = async (req, res) => {
   }
 };
 
+
+
+const otpStore = {}; // You can replace this with Redis or DB for production
+
+exports.sendOtp = async (req, res) => {
+  const { parentEmail } = req.body;
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  otpStore[parentEmail] = { otp, expires: Date.now() + 5 * 60 * 1000 }; // 5 mins
+
+  try {
+    await sendNotificationEmail.sendOtpEmail(parentEmail, otp);
+    res.json({ message: "OTP sent to parent email" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to send OTP", error: err.message });
+  }
+};
+
+exports.verifyOtp = (req, res) => {
+  const { parentEmail, otp } = req.body;
+  const record = otpStore[parentEmail];
+
+  if (!record || record.expires < Date.now()) {
+    return res.status(400).json({ message: "OTP expired or not found" });
+  }
+
+  if (record.otp !== otp) {
+    return res.status(400).json({ message: "Invalid OTP" });
+  }
+
+  delete otpStore[parentEmail]; // Clear OTP after success
+  res.json({ message: "OTP verified" });
+};

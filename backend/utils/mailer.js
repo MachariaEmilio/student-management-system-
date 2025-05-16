@@ -19,5 +19,18 @@ const sendNotificationEmail = async (to, studentName) => {
 
   return transporter.sendMail(mailOptions);
 };
+const sendOtpEmail = async (to, otp) => {
+  const mailOptions = {
+    from: `"School Admin" <${process.env.EMAIL_USER}>`,
+    to,
+    subject: `Parent Verification Code (OTP)`,
+    text: `Dear Parent,\n\nYour OTP for registering your child is: ${otp}\n\nIt is valid for 5 minutes.\n\nRegards,\nSchool Admin`,
+  };
 
-module.exports = sendNotificationEmail;
+  return transporter.sendMail(mailOptions);
+};
+
+module.exports = {
+  sendNotificationEmail,
+  sendOtpEmail,
+};
