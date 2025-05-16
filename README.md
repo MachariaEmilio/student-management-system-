@@ -12,12 +12,13 @@ A Node.js-based backend service that sends email notifications to parents when a
 
 
 📦 Tech Stack
-Node.js
-Express
-Prisma ORM
-Nodemailer
-Gmail SMTP
-dotenv
+
+  Node.js
+  Express
+  Prisma ORM
+  Nodemailer
+  Gmail SMTP
+  dotenv
 
 
 
