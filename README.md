@@ -25,16 +25,16 @@ A Node.js-based backend service that sends email notifications to parents when a
 ⚙️ Setup Instructions
 
 1. Clone the Repository
-
+```
 git clone https://github.com/your-username/student-notification-system.git
 cd student-notification-system
-
+```
 
  2. Install Dependencies
 
-
+```
 npm install
-
+```
 
 3. Configure Environment Variables
 
