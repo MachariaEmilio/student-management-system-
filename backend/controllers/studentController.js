@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const sendNotificationEmail = require("../utils/mailer");
+const {sendNotificationEmail, sendOtpEmail} = require("../utils/mailer.js");
 
 // Create student
 exports.createStudent = async (req, res) => {
@@ -24,9 +24,9 @@ exports.getStudents = async (req, res) => {
   }
 };
 
-// Notify parent
 exports.notifyParent = async (req, res) => {
   const { id } = req.params;
+
   try {
     const student = await prisma.student.findUnique({ where: { id } });
     if (!student) return res.status(404).json({ message: "Student not found" });
@@ -76,7 +76,7 @@ exports.sendOtp = async (req, res) => {
   otpStore[parentEmail] = { otp, expires: Date.now() + 5 * 60 * 1000 }; // 5 mins
 
   try {
-    await sendNotificationEmail.sendOtpEmail(parentEmail, otp);
+    await sendOtpEmail(parentEmail, otp);
     res.json({ message: "OTP sent to parent email" });
   } catch (err) {
     res.status(500).json({ message: "Failed to send OTP", error: err.message });

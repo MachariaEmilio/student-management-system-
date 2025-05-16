@@ -1,8 +1,8 @@
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -19,6 +19,7 @@ const sendNotificationEmail = async (to, studentName) => {
 
   return transporter.sendMail(mailOptions);
 };
+
 const sendOtpEmail = async (to, otp) => {
   const mailOptions = {
     from: `"School Admin" <${process.env.EMAIL_USER}>`,
