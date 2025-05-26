@@ -1,5 +1,4 @@
 📘 Student Notification System
-
 A Node.js-based backend service that sends email notifications to parents when a student is at risk of being removed from the school system.
 
 
